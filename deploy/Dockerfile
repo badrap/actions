@@ -10,4 +10,4 @@ RUN chmod u+x /usr/local/bin/sops \
 
 COPY entrypoint.sh /entrypoint.sh
 
-# ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

@@ -1,4 +1,5 @@
-#!/bin/sh -l
+#!/bin/ash
+set -e
 
 cd "${GITHUB_WORKSPACE}"
 
