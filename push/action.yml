@@ -14,7 +14,7 @@ inputs:
     description: Input image
     required: true
 outputs:
-  output_ image:
+  output_image:
     description: Output image
 runs:
   using: 'docker'
