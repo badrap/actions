@@ -1,4 +1,5 @@
-#!/bin/sh -l
+#!/bin/ash
+set -e
 
 echo "${INPUT_GCLOUD_SERVICE_KEY}" > ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account --project=${INPUT_GCLOUD_PROJECT} --key-file=${HOME}/gcloud-service-key.json
