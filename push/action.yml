@@ -1,0 +1,5 @@
+name: badrap-push
+description: Push a container to GCloud
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
