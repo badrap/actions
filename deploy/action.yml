@@ -27,4 +27,4 @@ inputs:
     required: true
 runs:
   using: docker
-  image: 'badrap/actions@latest'
+  image: Dockerfile
