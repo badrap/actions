@@ -26,5 +26,5 @@ inputs:
     description: Helm release namespace
     required: true
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: docker
+  image: badrap/actions/deploy@latest
