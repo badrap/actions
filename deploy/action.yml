@@ -28,4 +28,4 @@ inputs:
 runs:
   using: "docker"
   image: "docker://badrap/github-actions:latest"
-  entrypoint: "/root/push/entrypoint.sh"
+  entrypoint: "/root/deploy/entrypoint.sh"
