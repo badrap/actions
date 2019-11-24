@@ -1,5 +1,4 @@
-#!/bin/ash
-set -e
+#!/bin/ash -eo pipefail
 
 cd "${GITHUB_WORKSPACE}"
 
