@@ -5,10 +5,7 @@ on:
     branches:
       - master
     paths:
-    - "deploy/**"
-
-env:
-  IMAGE_NAME: deploy
+      - "deploy/**"
 
 jobs:
   push:
@@ -25,7 +22,7 @@ jobs:
 
       - name: Push image
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}
 
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
