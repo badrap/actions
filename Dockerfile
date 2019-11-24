@@ -8,6 +8,5 @@ RUN chmod u+x /usr/local/bin/sops \
   && mv /tmp/linux-amd64/helm /usr/local/bin \
   && rm -rf /tmp/helm.tar.gz /tmp/linux-amd64
 
-COPY entrypoint.sh /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+WORKDIR /root
+COPY . .

@@ -26,5 +26,6 @@ inputs:
     description: Helm release namespace
     required: true
 runs:
-  using: docker
-  image: "badrap/actions/deploy@latest"
+  using: "docker"
+  image: "docker://badrap/github-actions:latest"
+  entrypoint: "push/entrypoint.sh"

@@ -17,5 +17,6 @@ outputs:
   output_image:
     description: Output image
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "docker://badrap/github-actions:latest"
+  entrypoint: "push/entrypoint.sh"
