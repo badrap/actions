@@ -18,5 +18,5 @@ outputs:
     description: Output image
 runs:
   using: "docker"
-  image: "docker://badrap/github-actions:latest"
+  image: "docker://ghcr.io/badrap/github-actions:latest"
   entrypoint: "/root/push/entrypoint.sh"
