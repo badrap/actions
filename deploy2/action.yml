@@ -26,11 +26,11 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl -s https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > "${GITHUB_ACTION_PATH}/sops"
+        curl -L -s https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > "${GITHUB_ACTION_PATH}/sops"
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
-        curl -s https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
+        curl -L -s https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
         tar xfv "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
     - env:
