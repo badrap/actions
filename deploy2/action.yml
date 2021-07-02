@@ -43,5 +43,5 @@ runs:
         HELM_NAMESPACE: ${{ inputs.helm_namespace }}
       run: |
         gcloud --quiet container clusters get-credentials -z "${CLUSTER_ZONE}" "${CLUSTER_NAME}"
-        "${GITHUB_ACTION_PATH}/sops" -d "${SECRETS_PATH}" | "${GITHUB_ACTION_PATH}/linux-amd64/helm" upgrade "${INPUT_HELM_RELEASE}" helm-chart --install --atomic --namespace "${INPUT_HELM_NAMESPACE}" --create-namespace --values - --set image.repository="${CONTAINER_REPOSITORY}" --set image.tag="${CONTAINER_TAG}"
+        "${GITHUB_ACTION_PATH}/sops" -d "${SECRETS_PATH}" | "${GITHUB_ACTION_PATH}/linux-amd64/helm" upgrade "${HELM_RELEASE}" helm-chart --install --atomic --namespace "${HELM_NAMESPACE}" --create-namespace --values - --set image.repository="${CONTAINER_REPOSITORY}" --set image.tag="${CONTAINER_TAG}"
       shell: bash
