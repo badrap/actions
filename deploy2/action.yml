@@ -23,14 +23,12 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > /usr/local/bin/sops
-        chmod u+x /usr/local/bin/sops
+        curl https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > "${GITHUB_ACTION_PATH}/sops"
+        chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
-        curl https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz > /tmp/helm.tar.gz
-        tar xfv /tmp/helm.tar.gz -C /tmp
-        mv /tmp/linux-amd64/helm /usr/local/bin
-        rm -rf /tmp/helm.tar.gz /tmp/linux-amd64
+        curl https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
+        tar xfv "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
     # - env:
     #     GCLOUD_CONTAINER_REPOSITORY: ${{ inputs.gcloud_container_repository }}
@@ -41,4 +39,4 @@ runs:
     #     HELM_NAMESPACE: ${{ inputs.helm_namespace }}
     #   run: |
     #     gcloud --quiet container clusters get-credentials -z "${CLUSTER_ZONE}" "${CLUSTER_NAME}"
-    #     sops -d "${SECRETS_PATH}" | helm upgrade "${INPUT_HELM_RELEASE}" helm-chart --install --atomic --namespace "${INPUT_HELM_NAMESPACE}" --create-namespace --values - --set image.repository="${GCLOUD_CONTAINER_REPOSITORY}" --set image.tag="${GITHUB_SHA}"
+    #     "${GITHUB_ACTION_PATH}/sops" -d "${SECRETS_PATH}" | "${GITHUB_ACTION_PATH}/linux-amd64/helm" upgrade "${INPUT_HELM_RELEASE}" helm-chart --install --atomic --namespace "${INPUT_HELM_NAMESPACE}" --create-namespace --values - --set image.repository="${GCLOUD_CONTAINER_REPOSITORY}" --set image.tag="${GITHUB_SHA}"
