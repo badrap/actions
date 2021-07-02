@@ -1,0 +1,57 @@
+name: badrap-deploy
+description: Deploy containers to GKE
+inputs:
+  gcloud_project:
+    description: GCloud project
+    required: true
+  gcloud_service_key:
+    description: GCloud service key
+    required: true
+  gcloud_container_repository:
+    description: GCloud container repository
+    required: true
+  cluster_zone:
+    description: Cluster zone
+    required: true
+  cluster_name:
+    description: Cluster name
+    required: true
+  secrets_path:
+    description: Secrets path
+    required: true
+  helm_release:
+    description: Helm release name
+    required: true
+  helm_namespace:
+    description: Helm release namespace
+    required: true
+runs:
+  using: "composite"
+  env:
+    GCLOUD_CONTAINER_REPOSITORY: ${{ inputs.gcloud_container_repository }}
+    CLUSTER_ZONE: ${{ inputs.cluster_zone }}
+    CLUSTER_NAME: ${{ inputs.cluster_name }}
+    SECRETS_PATH: ${{ inputs.secrets_path }}
+    HELM_RELEASE: ${{ inputs.helm_release }}
+    HELM_NAMESPACE: ${{ inputs.helm_namespace }}
+  steps:
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ inputs.gcloud_project }}
+        service_account_key: ${{ inputs.gcloud_service_key }}
+        export_default_credentials: true
+    - name: Install sops
+      run: |
+        curl https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > /usr/local/bin/sops
+        chmod u+x /usr/local/bin/sops
+    - name: Install Helm
+      run: |
+        curl https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz > /tmp/helm.tar.gz
+        tar xfv /tmp/helm.tar.gz -C /tmp
+        mv /tmp/linux-amd64/helm /usr/local/bin
+        rm -rf /tmp/helm.tar.gz /tmp/linux-amd64
+    - name: Deploy to GKE
+      run: |
+        gcloud --quiet container clusters get-credentials -z "${CLUSTER_ZONE}" "${CLUSTER_NAME}"
+        sops -d "${SECRETS_PATH}" | helm upgrade "${INPUT_HELM_RELEASE}" helm-chart --install --atomic --namespace "${INPUT_HELM_NAMESPACE}" --create-namespace --values - --set image.repository="${GCLOUD_CONTAINER_REPOSITORY}" --set image.tag="${GITHUB_SHA}"
