@@ -27,13 +27,6 @@ inputs:
     required: true
 runs:
   using: "composite"
-  env:
-    GCLOUD_CONTAINER_REPOSITORY: ${{ inputs.gcloud_container_repository }}
-    CLUSTER_ZONE: ${{ inputs.cluster_zone }}
-    CLUSTER_NAME: ${{ inputs.cluster_name }}
-    SECRETS_PATH: ${{ inputs.secrets_path }}
-    HELM_RELEASE: ${{ inputs.helm_release }}
-    HELM_NAMESPACE: ${{ inputs.helm_namespace }}
   steps:
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@master
@@ -52,6 +45,13 @@ runs:
         mv /tmp/linux-amd64/helm /usr/local/bin
         rm -rf /tmp/helm.tar.gz /tmp/linux-amd64
     - name: Deploy to GKE
+      env:
+        GCLOUD_CONTAINER_REPOSITORY: ${{ inputs.gcloud_container_repository }}
+        CLUSTER_ZONE: ${{ inputs.cluster_zone }}
+        CLUSTER_NAME: ${{ inputs.cluster_name }}
+        SECRETS_PATH: ${{ inputs.secrets_path }}
+        HELM_RELEASE: ${{ inputs.helm_release }}
+        HELM_NAMESPACE: ${{ inputs.helm_namespace }}
       run: |
         gcloud --quiet container clusters get-credentials -z "${CLUSTER_ZONE}" "${CLUSTER_NAME}"
         sops -d "${SECRETS_PATH}" | helm upgrade "${INPUT_HELM_RELEASE}" helm-chart --install --atomic --namespace "${INPUT_HELM_NAMESPACE}" --create-namespace --values - --set image.repository="${GCLOUD_CONTAINER_REPOSITORY}" --set image.tag="${GITHUB_SHA}"
