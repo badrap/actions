@@ -1,12 +1,6 @@
 name: badrap-deploy
 description: Deploy containers to GKE
 inputs:
-  gcloud_project:
-    description: GCloud project
-    required: true
-  gcloud_service_key:
-    description: GCloud service key
-    required: true
   gcloud_container_repository:
     description: GCloud container repository
     required: true
@@ -28,19 +22,16 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: google-github-actions/setup-gcloud@master
-      with:
-        project_id: ${{ inputs.gcloud_project }}
-        service_account_key: ${{ inputs.gcloud_service_key }}
-        export_default_credentials: true
-    # - run: |
-    #     curl https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > /usr/local/bin/sops
-    #     chmod u+x /usr/local/bin/sops
-    # - run: |
-    #     curl https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz > /tmp/helm.tar.gz
-    #     tar xfv /tmp/helm.tar.gz -C /tmp
-    #     mv /tmp/linux-amd64/helm /usr/local/bin
-    #     rm -rf /tmp/helm.tar.gz /tmp/linux-amd64
+    - run: |
+        curl https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > /usr/local/bin/sops
+        chmod u+x /usr/local/bin/sops
+      shell: bash
+    - run: |
+        curl https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz > /tmp/helm.tar.gz
+        tar xfv /tmp/helm.tar.gz -C /tmp
+        mv /tmp/linux-amd64/helm /usr/local/bin
+        rm -rf /tmp/helm.tar.gz /tmp/linux-amd64
+      shell: bash
     # - env:
     #     GCLOUD_CONTAINER_REPOSITORY: ${{ inputs.gcloud_container_repository }}
     #     CLUSTER_ZONE: ${{ inputs.cluster_zone }}
