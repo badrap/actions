@@ -31,7 +31,7 @@ runs:
       shell: bash
     - run: |
         curl -L -s https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
-        tar xfv "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
+        tar xf "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
     - env:
         CONTAINER_REPOSITORY: ${{ inputs.container_repository }}
