@@ -1,6 +1,12 @@
 name: badrap-deploy
 description: Deploy containers to GKE
 inputs:
+  gcloud_project_id:
+    description: GCloud project ID
+    required: true
+  gcloud_service_key:
+    description: GCloud service key
+    required: true
   container_repository:
     description: Container repository
     required: true
@@ -25,6 +31,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Setup GCloud
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ inputs.gcloud_project_id }}
+        service_account_key: ${{ inputs.gcloud_service_key }}
+        export_default_credentials: true
     - run: |
         curl -L -s https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > "${GITHUB_ACTION_PATH}/sops"
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
