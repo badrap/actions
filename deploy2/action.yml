@@ -42,7 +42,7 @@ runs:
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
-        curl -L -s https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
+        curl -L -s https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
         tar xf "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
     - env:
