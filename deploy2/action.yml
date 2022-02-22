@@ -31,12 +31,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup GCloud
-      uses: google-github-actions/setup-gcloud@master
+    - name: Authenticate to Google Cloud
+      uses: 'google-github-actions/auth@v0'
       with:
         project_id: ${{ inputs.gcloud_project_id }}
-        service_account_key: ${{ inputs.gcloud_service_key }}
-        export_default_credentials: true
+        credentials_json: ${{ inputs.gcloud_service_key }}
+    - name: Setup GCloud
+      uses: google-github-actions/setup-gcloud@v0
     - run: |
         curl -L -s https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > "${GITHUB_ACTION_PATH}/sops"
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
