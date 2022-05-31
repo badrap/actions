@@ -28,7 +28,7 @@ runs:
     - name: Setup GCloud
       uses: google-github-actions/setup-gcloud@v0
     - run: |
-        curl -L -s https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux > "${GITHUB_ACTION_PATH}/sops"
+        curl -L -s https://github.com/mozilla/sops/releases/download/v3.7.3/sops-v3.7.3.linux > "${GITHUB_ACTION_PATH}/sops"
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
