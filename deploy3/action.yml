@@ -35,7 +35,7 @@ runs:
       shell: bash
     - uses: google-github-actions/get-gke-credentials@v0
       with:
-        cluster_name: ${{ inputs.container_tag }}
+        cluster_name: ${{ inputs.cluster_name }}
         location: ${{ inputs.cluster_zone }}
     - env:
         CONTAINER_REPOSITORY: ${{ inputs.container_repository }}
