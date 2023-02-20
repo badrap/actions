@@ -27,6 +27,9 @@ runs:
   steps:
     - name: Setup GCloud
       uses: google-github-actions/setup-gcloud@v1
+      with:
+        version: ">= 363.0.0"
+        install_components: "gke-gcloud-auth-plugin"
     - run: |
         curl -L -s https://github.com/mozilla/sops/releases/download/v3.7.3/sops-v3.7.3.linux > "${GITHUB_ACTION_PATH}/sops"
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
