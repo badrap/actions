@@ -13,6 +13,10 @@ inputs:
   cluster_name:
     description: Cluster name
     required: true
+  use_internal_ip:
+    description: If set to 'true', use the cluster's internal endpoint IP.
+    required: false
+    default: 'false'
   secrets_path:
     description: Secrets path
     required: true
@@ -37,6 +41,7 @@ runs:
       with:
         cluster_name: ${{ inputs.cluster_name }}
         location: ${{ inputs.cluster_zone }}
+        use_internal_ip: ${{ inputs.use_internal_ip }}
     - env:
         CONTAINER_REPOSITORY: ${{ inputs.container_repository }}
         CONTAINER_TAG: ${{ inputs.container_tag }}
