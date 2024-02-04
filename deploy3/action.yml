@@ -37,7 +37,7 @@ runs:
         curl -L -s https://get.helm.sh/helm-v3.13.1-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
         tar xf "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
-    - uses: google-github-actions/get-gke-credentials@v1.0.2
+    - uses: google-github-actions/get-gke-credentials@v2.1.0
       with:
         cluster_name: ${{ inputs.cluster_name }}
         location: ${{ inputs.cluster_zone }}
