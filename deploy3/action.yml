@@ -13,10 +13,6 @@ inputs:
   cluster_name:
     description: Cluster name
     required: true
-  use_internal_ip:
-    description: If set to 'true', use the cluster's internal endpoint IP.
-    required: false
-    default: 'false'
   secrets_path:
     description: Secrets path
     required: true
@@ -30,18 +26,18 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl -L -s https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 > "${GITHUB_ACTION_PATH}/sops"
+        curl -L -s https://github.com/getsops/sops/releases/download/v3.9.2/sops-v3.9.2.linux.amd64 > "${GITHUB_ACTION_PATH}/sops"
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
-        curl -L -s https://get.helm.sh/helm-v3.13.1-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
+        curl -L -s https://get.helm.sh/helm-v3.16.3-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
         tar xf "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
-    - uses: google-github-actions/get-gke-credentials@v2.1.0
+    - uses: google-github-actions/get-gke-credentials@v2.3.0
       with:
         cluster_name: ${{ inputs.cluster_name }}
         location: ${{ inputs.cluster_zone }}
-        use_internal_ip: ${{ inputs.use_internal_ip }}
+        use_dns_based_endpoint: 'true'
     - env:
         CONTAINER_REPOSITORY: ${{ inputs.container_repository }}
         CONTAINER_TAG: ${{ inputs.container_tag }}
