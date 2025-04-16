@@ -27,11 +27,12 @@ runs:
   steps:
     - run: |
         curl -L -s https://github.com/getsops/sops/releases/download/v3.10.2/sops-v3.10.2.linux.amd64 > "${GITHUB_ACTION_PATH}/sops"
-        echo "79b0f844237bd4b0446e4dc884dbc1765fc7dedc3968f743d5949c6f2e701738 ${GITHUB_ACTION_PATH}/sops" | sha256sum --check
+        echo "79b0f844237bd4b0446e4dc884dbc1765fc7dedc3968f743d5949c6f2e701739 ${GITHUB_ACTION_PATH}/sops" | sha256sum --check
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
-        curl -L -s https://get.helm.sh/helm-v3.16.3-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
+        curl -L -s https://get.helm.sh/helm-v3.17.3-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
+        echo "ee88b3c851ae6466a3de507f7be73fe94d54cbf2987cbaa3d1a3832ea331f2cd ${GITHUB_ACTION_PATH}/helm.tar.gz" | sha256sum --check
         tar xf "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
     - uses: google-github-actions/get-gke-credentials@d0cee45012069b163a631894b98904a9e6723729 # v2.3.3
