@@ -26,14 +26,15 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl -L -s https://github.com/getsops/sops/releases/download/v3.9.2/sops-v3.9.2.linux.amd64 > "${GITHUB_ACTION_PATH}/sops"
+        curl -L -s https://github.com/getsops/sops/releases/download/v3.10.2/sops-v3.10.2.linux.amd64 > "${GITHUB_ACTION_PATH}/sops"
+        echo "79b0f844237bd4b0446e4dc884dbc1765fc7dedc3968f743d5949c6f2e701738 ${GITHUB_ACTION_PATH}/sops" | sha256sum --check
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
         curl -L -s https://get.helm.sh/helm-v3.16.3-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
         tar xf "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
-    - uses: google-github-actions/get-gke-credentials@v2.3.0
+    - uses: google-github-actions/get-gke-credentials@d0cee45012069b163a631894b98904a9e6723729 # v2.3.3
       with:
         cluster_name: ${{ inputs.cluster_name }}
         location: ${{ inputs.cluster_zone }}
