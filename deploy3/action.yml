@@ -31,8 +31,8 @@ runs:
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
-        curl -L -s https://get.helm.sh/helm-v3.17.3-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
-        echo "ee88b3c851ae6466a3de507f7be73fe94d54cbf2987cbaa3d1a3832ea331f2cd ${GITHUB_ACTION_PATH}/helm.tar.gz" | sha256sum --check
+        curl -L -s https://get.helm.sh/helm-v3.18.4-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
+        echo "f8180838c23d7c7d797b208861fecb591d9ce1690d8704ed1e4cb8e2add966c1 ${GITHUB_ACTION_PATH}/helm.tar.gz" | sha256sum --check
         tar xf "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
     - uses: google-github-actions/get-gke-credentials@d0cee45012069b163a631894b98904a9e6723729 # v2.3.3
