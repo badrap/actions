@@ -26,16 +26,16 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl -L -s https://github.com/getsops/sops/releases/download/v3.10.2/sops-v3.10.2.linux.amd64 > "${GITHUB_ACTION_PATH}/sops"
-        echo "79b0f844237bd4b0446e4dc884dbc1765fc7dedc3968f743d5949c6f2e701739 ${GITHUB_ACTION_PATH}/sops" | sha256sum --check
+        curl -L -s https://github.com/getsops/sops/releases/download/v3.11.0/sops-v3.11.0.linux.amd64 > "${GITHUB_ACTION_PATH}/sops"
+        echo "775f1384d55decfad228e7196a3f683791914f92a473f78fc47700531c29dfef ${GITHUB_ACTION_PATH}/sops" | sha256sum --check
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
-        curl -L -s https://get.helm.sh/helm-v3.18.4-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
-        echo "f8180838c23d7c7d797b208861fecb591d9ce1690d8704ed1e4cb8e2add966c1 ${GITHUB_ACTION_PATH}/helm.tar.gz" | sha256sum --check
+        curl -L -s https://get.helm.sh/helm-v3.19.2-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
+        echo "2114c9dea2844dce6d0ee2d792a9aae846be8cf53d5b19dc2988b5a0e8fec26e ${GITHUB_ACTION_PATH}/helm.tar.gz" | sha256sum --check
         tar xf "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
-    - uses: google-github-actions/get-gke-credentials@8e574c49425fa7efed1e74650a449bfa6a23308a # v2.3.4
+    - uses: google-github-actions/get-gke-credentials@3da1e46a907576cefaa90c484278bb5b259dd395 # v3.0.0
       with:
         cluster_name: ${{ inputs.cluster_name }}
         location: ${{ inputs.cluster_zone }}
