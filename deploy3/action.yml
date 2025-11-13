@@ -31,8 +31,8 @@ runs:
         chmod u+x "${GITHUB_ACTION_PATH}/sops"
       shell: bash
     - run: |
-        curl -L -s https://get.helm.sh/helm-v3.19.2-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
-        echo "2114c9dea2844dce6d0ee2d792a9aae846be8cf53d5b19dc2988b5a0e8fec26e ${GITHUB_ACTION_PATH}/helm.tar.gz" | sha256sum --check
+        curl -L -s https://get.helm.sh/helm-v4.0.0-linux-amd64.tar.gz > "${GITHUB_ACTION_PATH}/helm.tar.gz"
+        echo "c77e9e7c1cc96e066bd240d190d1beed9a6b08060b2043ef0862c4f865eca08f ${GITHUB_ACTION_PATH}/helm.tar.gz" | sha256sum --check
         tar xf "${GITHUB_ACTION_PATH}/helm.tar.gz" -C "${GITHUB_ACTION_PATH}"
       shell: bash
     - uses: google-github-actions/get-gke-credentials@3da1e46a907576cefaa90c484278bb5b259dd395 # v3.0.0
@@ -47,5 +47,5 @@ runs:
         HELM_RELEASE: ${{ inputs.helm_release }}
         HELM_NAMESPACE: ${{ inputs.helm_namespace }}
       run: |
-        "${GITHUB_ACTION_PATH}/sops" -d "${SECRETS_PATH}" | "${GITHUB_ACTION_PATH}/linux-amd64/helm" upgrade "${HELM_RELEASE}" helm-chart --install --atomic --namespace "${HELM_NAMESPACE}" --create-namespace --values - --set image.repository="${CONTAINER_REPOSITORY}" --set image.tag="${CONTAINER_TAG}"
+        "${GITHUB_ACTION_PATH}/sops" -d "${SECRETS_PATH}" | "${GITHUB_ACTION_PATH}/linux-amd64/helm" upgrade "${HELM_RELEASE}" helm-chart --install --rollback-on-failure --namespace "${HELM_NAMESPACE}" --create-namespace --values - --set image.repository="${CONTAINER_REPOSITORY}" --set image.tag="${CONTAINER_TAG}"
       shell: bash
